@@ -16,8 +16,27 @@ function ItemForm() {
 function handleSubmit(e){
   e.preventDefault();
   console.log("name:",name);
-  console("category:",category);
 
+  // creating   an object that holds  our submit data
+   const itemData = {
+
+   name: name,
+   category:category,
+   isInCart:false,
+   };
+
+  //fetching so as the data to be 
+  //posted in db.json
+
+fetch("http://localhost:4000/items",{
+ method:"POST",
+ headers:{
+"Content-Type":"application/json",
+ },
+ body:JSON.stringify(itemData),
+  })
+  .then((r) => r.json())
+  .then((newItem) => console.log(newItem));
 
 }
 

@@ -6,7 +6,9 @@ import Item from "./Item";
 
 function ShoppingList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  // // Update selectedCategory by passing the array of  selectedCategory to  selectedCategory to 
   const [items, setItems] = useState([]);
+  // // Update state by passing the array of items to setItems
 
 // adding use effect hook to fetch data from  json api
 

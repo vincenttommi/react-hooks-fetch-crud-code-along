@@ -1,8 +1,29 @@
 import React from "react";
-function Item({ item }) {
+
+
+//Destructuring the onUpdateItem,item and onDeleteItem  as Prop
+function Item({ item, onUpdateItem,OnDeleteItem}) {
+
+
+
+// adding a function  handle delete
+
+function handleDeleteClick(){
+
+  fetch(`http://localhost:4000/items/${item.id}`,{
+  method:"DELETE",
+
+  })
+  .then((r) => r.json())
+  .then(() => console.log("deleted!"));
+}
+
+
+
+
   // adding function yo handle button click
-function handleAddToClick(){
-  // ading  fetch request so t update our data
+function handleAddToCartClick(){
+     // Call onUpdateItem, passing the data returned from the fetch request
   fetch(`http://localhost:4000/items/${item.id}`,{
 
        method : "PATCH",
@@ -17,7 +38,7 @@ function handleAddToClick(){
   })
 
   .then((r) => r.json())
-  .then((updatedItem) => console.log(updatedItem));
+  .then((updatedItem) => onUpdateItem(updatedItem));
   }
 
 
@@ -27,10 +48,11 @@ function handleAddToClick(){
     <li className={item.isInCart ? "in-cart" : ""}>
       <span>{item.name}</span>
       <span className="category">{item.category}</span>
-      <button className={item.isInCart ? "remove" : "add"}>
+      <button className={item.isInCart ? "remove" : "add"}
+      onClick={handleAddToCartClick}>
         {item.isInCart ? "Remove From" : "Add to"} Cart
       </button>
-      <button className="remove">Delete</button>
+      <button  onClick={handleDeleteClick} className="remove">Delete</button>
     </li>
   );
 }

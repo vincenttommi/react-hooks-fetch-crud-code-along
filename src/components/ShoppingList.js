@@ -4,6 +4,7 @@ import ItemForm from "./ItemForm";
 import Filter from "./Filter";
 import Item from "./Item";
 
+
 function ShoppingList() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   // // Update selectedCategory by passing the array of  selectedCategory to  selectedCategory to 
@@ -22,21 +23,43 @@ useEffect(() =>{
 },[]);
 
 
-//ading a callback function   to
-//  pass updated item as a prop
+//adding a callback function to handle delete
 
-function handleUpdateItem(updatedItem){
-  console.log("In shoppingCart:", updatedItem);
+
+function handleDeleteItem(deletedItem){
+
+
+const updatedItems = items.filter((item) => item.id !== deletedItem.id);
+setItems(updatedItems);
+
 }
 
 
 
 
 
+//ading a callback function   to
+//  pass updated item as a prop
 
+function handleUpdateItem(updatedItem){
+
+
+  const updatedItems = items.map((item) => {
+
+    if(item.id === updatedItem.id){
+      return updatedItem;
+    }else{
+
+
+      return item;
+
+    }
+  });
+
+  setItems(updatedItems);
+}
 
 //function to handle item
-
 // adding a handleitem function to shoppinglist
 // and passing a reference to that function as a prop to the itemform
 
@@ -69,7 +92,12 @@ function handleAddItem(newItem){
       />
       <ul className="Items">
         {itemsToDisplay.map((item) => (
-          <Item key={item.id} item={item} />
+          <Item key={item.id} item={item}
+          
+          onUpdateItem={handleUpdateItem}
+          onDelete={handleDeleteItem}
+          
+          />
         ))}
       </ul>
     </div>

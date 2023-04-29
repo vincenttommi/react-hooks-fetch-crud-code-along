@@ -3,7 +3,8 @@ import React, { useState } from "react";
 //State is used to store data that can change over time and can be passed down to child components
 
 
-function ItemForm() {
+//destructuring the onAddItem prop
+function ItemForm({ onAddItem }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Produce");
  // This code is a short form of a React hook that creates a state variable named 
@@ -15,8 +16,6 @@ function ItemForm() {
 // add functions to handle submissions
 function handleSubmit(e){
   e.preventDefault();
-  console.log("name:",name);
-
   // creating   an object that holds  our submit data
    const itemData = {
 
@@ -36,7 +35,8 @@ fetch("http://localhost:4000/items",{
  body:JSON.stringify(itemData),
   })
   .then((r) => r.json())
-  .then((newItem) => console.log(newItem));
+  //calling the onAddItem prop with the newItem
+  .then((newItem) => onAddItem(newItem));
 
 }
 

@@ -21,6 +21,34 @@ useEffect(() =>{
 
 },[]);
 
+
+//ading a callback function   to
+//  pass updated item as a prop
+
+function handleUpdateItem(updatedItem){
+  console.log("In shoppingCart:", updatedItem);
+}
+
+
+
+
+
+
+
+//function to handle item
+
+// adding a handleitem function to shoppinglist
+// and passing a reference to that function as a prop to the itemform
+
+function handleAddItem(newItem){
+
+ setItems([...items,newItem]);
+ //
+//
+//This is a function named "handleAddItem" 
+//that takes in a parameter called "newItem". The function uses the "setItems" function to update the state of the "items" array by spreading the existing items using the spread operator "..." and adding the new item at the end of the array.
+
+}
   function handleCategoryChange(category) {
     setSelectedCategory(category);
   }
@@ -33,7 +61,8 @@ useEffect(() =>{
 
   return (
     <div className="ShoppingList">
-      <ItemForm />
+      {/* adding the onAddItem prop! */}
+      <ItemForm  onAddItem={handleAddItem} />
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
